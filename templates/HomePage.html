@@ -2,9 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>fléxi - Página Inicial</title>
+    <title>
+        {% block title %}
+            fléxi - Página Inicial
+        {% endblock %}
+    </title>
 </head>
-<body>
-    <h1>fléxi - pagina inicial</h1>
-</body>
+{% block body %}
+    <body>
+        <h1>fléxi - pagina inicial</h1>
+    </body>
+{% endblock %}
 </html>
