@@ -1,11 +1,18 @@
 from email.policy import default
 from enum import unique
 
+from flask_login import UserMixin, login_manager
+
 from appflexi import database
 from datetime import datetime
 from zoneinfo import ZoneInfo
 
-class User(database.Model):
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
+
+class User(database.Model, UserMixin):
     id = database.Column(database.Integer, primary_key=True)
     username = database.Column(database.String(20),unique=True ,nullable=False)
     email = database.Column(database.String(100),unique=True ,nullable=False)
