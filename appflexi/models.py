@@ -1,7 +1,6 @@
 from flask_login import UserMixin
+from datetime import datetime, timezone
 from appflexi import database, login_manager
-from datetime import datetime
-from zoneinfo import ZoneInfo
 
 
 @login_manager.user_loader
@@ -21,11 +20,13 @@ class User(database.Model, UserMixin):
 class Photo(database.Model):
     id = database.Column(database.Integer, primary_key=True)
     file_name = database.Column(database.String(255), default="default.png")
+
     upload_date = database.Column(
-        database.DateTime,
-        default=lambda: datetime.now(ZoneInfo('America/Sao_Paulo')),
-        nullable=False
+        database.DateTime(timezone=True),
+        nullable=False,
+        default=lambda: datetime.now(timezone.utc)
     )
+
     user_id = database.Column(
         database.Integer,
         database.ForeignKey('user.id'),
