@@ -9,5 +9,7 @@
         <h1> Perfil do usuário: {{ user.username }}</h1>
 
         <a href="{{ url_for('logout') }}">Sair</a>
+
+        <img src="{{ url_for('static', filename= 'posts_photos/default.png') }}" alt="Imagem">
     </body>
 {% endblock %}
