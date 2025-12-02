@@ -1,0 +1,17 @@
+{% extends "homepage.html" %}
+
+{% block title %}
+    Fléxi - Feed
+{% endblock %}
+
+{% block body %}
+    {% include "navbar.html" %}
+    <h1>Feed Principal</h1>
+
+    {% for photo in photos %}
+    <a href="{{ url_for('profile', user_id=photo.user_id) }}">
+        <img src="{{ url_for('static', filename='posts_photos/' ~ photo.file_name) }}" alt="Imagem">
+    </a>
+    {% endfor %}
+
+{% endblock %}
