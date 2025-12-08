@@ -10,6 +10,12 @@
             {{ form.email.label() }}
             {{ form.email }}
 
+            {% if form.username.errors %}
+                {% for erro in form.username.errors %}
+                    <p class="alert alert-danger"> {{ erro }} </p>
+                {% endfor %}
+            {% endif %}
+
             {{ form.username.label }}
             {{ form.username }}
 
@@ -21,4 +27,5 @@
 
             {{ form.submit }}
         </form>
+    <a href="{{ url_for('homepage') }}">Tem uma conta? Faça login!</a>
     {% endblock %}
