@@ -32,3 +32,11 @@ class Photo(database.Model):
         database.ForeignKey('user.id'),
         nullable=False
     )
+
+class SavedPhoto(database.Model):
+    id = database.Column(database.Integer, primary_key=True)
+    user_id = database.Column(database.Integer, database.ForeignKey('user.id'), nullable=False)
+    photo_id = database.Column(database.Integer, database.ForeignKey('photo.id'), nullable=False)
+
+    photo = database.relationship('Photo', backref='saved_by_users')
+

@@ -1,0 +1,30 @@
+{% extends "homepage.html" %}
+
+{% block title %}
+    Fléxi - Fotos Salvas
+{% endblock %}
+
+{% block body %}
+    {% include "navbar.html" %}
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Fotos Salvas</h1>
+        {% if saved_photos %}
+            <div class="row">
+                {% for photo in saved_photos %}
+                    <div class="col-md-3 mb-4">
+                        <a href="{{ url_for('profile', user_id=photo.user_id) }}">
+                            <img src="{{ url_for('static', filename='posts_photos/' ~ photo.file_name) }}"
+                                 class="img-fluid rounded shadow-sm"
+                                 alt="Imagem salva">
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="text-center alert alert-info">Você ainda não salvou nenhuma foto.</p>
+        {% endif %}
+        <div class="text-center mt-3">
+            <a href="{{ url_for('feed') }}" class="btn btn-outline-secondary">Voltar ao Feed</a>
+        </div>
+    </div>
+{% endblock %}

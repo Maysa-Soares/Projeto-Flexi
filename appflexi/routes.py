@@ -2,7 +2,7 @@ from flask import  render_template, url_for, redirect
 from flask_login import login_required, login_user, logout_user, current_user
 from appflexi.forms import LoginForm, RegisterForm, PhotoForm
 from appflexi import app, database, bcrypt
-from appflexi.models import User, Photo
+from appflexi.models import User, Photo, SavedPhoto
 import os
 from werkzeug.utils import secure_filename
 
@@ -69,4 +69,15 @@ def logout():
 def feed():
     photos = Photo.query.order_by(Photo.upload_date.desc()).all()
     return render_template("feed.html", photos=photos)
+
+@app.route('/savedphoto/<int:photo_id>', methods=['POST'])
+@login_required
+def save_photo(photo_id):
+    already_saved = SavedPhoto.query.filter_by(user_id=current_user.id, photo_id=photo_id).first()
+    if not already_saved:
+        saved = SavedPhoto(user_id=current_user.id, photo_id=photo_id)
+        database.session.add(saved)
+        database.session.commit()
+
+
 
