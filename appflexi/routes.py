@@ -1,3 +1,5 @@
+import shutil
+
 from flask import  render_template, url_for, redirect
 from flask_login import login_required, login_user, logout_user, current_user
 from appflexi.forms import LoginForm, RegisterForm, PhotoForm
@@ -70,6 +72,7 @@ def feed():
     photos = Photo.query.order_by(Photo.upload_date.desc()).all()
     return render_template("feed.html", photos=photos)
 
+
 @app.route('/savedphoto/<int:photo_id>', methods=['POST'])
 @login_required
 def save_photo(photo_id):
@@ -79,5 +82,17 @@ def save_photo(photo_id):
         database.session.add(saved)
         database.session.commit()
 
+        photo = Photo.query.get(photo_id)
+        src = os.path.join(app.root_path, 'static', 'posts_photos', photo.file_name)
+        dst = os.path.join(app.root_path, 'static', 'saved_photos', photo.file_name)
+        shutil.copy(src, dst)
+
+    return redirect(url_for('feed'))
 
 
+@app.route('/savedphotos')
+@login_required
+def savedphotos():
+    saved = SavedPhoto.query.filter_by(user_id=current_user.id).all()
+    saved_photos = [Photo.query.get(item.photo_id) for item in saved]
+    return render_template('savedphotos.html', saved_photos=saved_photos)

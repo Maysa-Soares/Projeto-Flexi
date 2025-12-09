@@ -13,9 +13,7 @@
                 {% for photo in saved_photos %}
                     <div class="col-md-3 mb-4">
                         <a href="{{ url_for('profile', user_id=photo.user_id) }}">
-                            <img src="{{ url_for('static', filename='posts_photos/' ~ photo.file_name) }}"
-                                 class="img-fluid rounded shadow-sm"
-                                 alt="Imagem salva">
+                            <img class="img-fluid rounded shadow-sm mb-2" src="{{ url_for('static', filename='saved_photos/' ~ photo.file_name) }}" alt="{{ photo.file_name }}">
                         </a>
                     </div>
                 {% endfor %}

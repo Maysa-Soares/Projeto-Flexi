@@ -6,21 +6,20 @@
 
 {% block body %}
     {% include "navbar.html" %}
+
     <h1 class="text-center my-4">Feed Principal</h1>
 
     <div class="row">
-    {% for photo in photos %}
-        <div class="col-md-3 mb-4 text-center">
-            <a href="{{ url_for('profile', user_id=photo.user_id) }}">
-                <img src="{{ url_for('static', filename='posts_photos/' ~ photo.file_name) }}"
-                     class="img-fluid rounded shadow-sm mb-2"
-                     alt="Imagem">
-            </a>
-            <form action="{{ url_for('save_photo', photo_id=photo.id) }}" method="post">
-                <button type="submit" class="btn btn-outline-success w-100">Salvar</button>
-            </form>
-        </div>
-    {% endfor %}
+        {% for photo in photos %}
+            <div class="col-md-3 mb-4 text-center">
+                <a href="{{ url_for('profile', user_id=photo.user_id) }}">
+                    <img class="img-fluid rounded shadow-sm mb-2" src="{{ url_for('static', filename='posts_photos/'~ photo.file_name) }}" alt="~ photo.file_namex">
+                </a>
+                <form action="{{ url_for('save_photo', photo_id=photo.id) }}" method="post">
+                    <button type="submit" class="btn btn-outline-success w-100">Salvar</button>
+                </form>
+            </div>
+        {% endfor %}
     </div>
 
 {% endblock %}
