@@ -1,6 +1,18 @@
-<nav>
-    <a href="{{ url_for('feed') }}">Feed</a>
-    <a href="{{ url_for('profile', user_id=current_user.id) }}">Perfil</a>
-    <a href="{{ url_for('logout') }}">Sair</a>
-    <a href="{{ url_for('savedphotos') }}">Salvos</a>
+<nav style="background-color:#8962D2; padding:10px 20px; position:fixed; top:0; left:0; width:100%; z-index:1000; box-shadow:0 2px 10px rgba(0,0,0,0.2);">
+    <ul style="list-style:none; margin:0; padding:0; display:flex; justify-content:space-between; align-items:center;">
+        <div style="display:flex; gap:10px;">
+            <li>
+                <a href="{{ url_for('feed') }}" style="color:white; text-decoration:none; padding:8px 15px; border-radius:5px; background-color:#AB7FFF; font-weight:bold;">Feed</a>
+            </li>
+            <li>
+                <a href="{{ url_for('profile', user_id=current_user.id) }}" style="color:white; text-decoration:none; padding:8px 15px; border-radius:5px; background-color:#AB7FFF; font-weight:bold;">Perfil</a>
+            </li>
+            <li>
+                <a href="{{ url_for('savedphotos') }}" style="color:white; text-decoration:none; padding:8px 15px; border-radius:5px; background-color:#AB7FFF; font-weight:bold;">Salvos</a>
+            </li>
+        </div>
+        <li>
+            <a href="{{ url_for('logout') }}" style="color:white; text-decoration:none; padding:8px 15px; border-radius:5px; background-color:#FF6B6B; font-weight:bold;">Sair</a>
+        </li>
+    </ul>
 </nav>

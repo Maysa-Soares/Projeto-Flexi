@@ -4,22 +4,31 @@
     Fléxi - Feed
 {% endblock %}
 
-{% block body %}
-    {% include "navbar.html" %}
+{% block form %}
+{% include "navbar.html" %}
 
-    <h1 class="text-center my-4">Feed Principal</h1>
-
-    <div class="row">
-        {% for photo in photos %}
-            <div class="col-md-3 mb-4 text-center">
-                <a href="{{ url_for('profile', user_id=photo.user_id) }}">
-                    <img class="img-fluid rounded shadow-sm mb-2" src="{{ url_for('static', filename='posts_photos/'~ photo.file_name) }}" alt="~ photo.file_namex">
-                </a>
-                <form action="{{ url_for('save_photo', photo_id=photo.id) }}" method="post">
-                    <button type="submit" class="btn btn-outline-success w-100">Salvar</button>
-                </form>
+<div class="d-flex justify-content-center" style="margin-top:90px;">
+    <div class="border m-5 shadow-lg rounded-5 p-5 w-75">
+        <h1 class="text-center mb-4">Feed Principal</h1>
+        {% if photos %}
+            <div style=" columns: 4; column-gap: 20px;">
+                {% for photo in photos %}
+                    <div style=" break-inside: avoid; margin-bottom: 20px; background:white; padding:10px; border-radius:10px; border:1px solid #ddd; box-shadow:2px 2px 10px rgba(0,0,0,0.2); display:block;">
+                        <p class="text-center fw-bold mb-1" style="color:#555;">
+                            {{ photo.user.username }}
+                        </p>
+                        <a href="{{ url_for('profile', user_id=photo.user_id) }}">
+                            <img src="{{ url_for('static', filename='posts_photos/' ~ photo.file_name) }}" style="width:100%; border-radius:8px; display:block;" alt="{{ photo.file_name }}">
+                        </a>
+                        <form action="{{ url_for('save_photo', photo_id=photo.id) }}" method="post" style="margin-top:10px;">
+                            <button type="submit" class="btn btn-outline-success w-100">Salvar</button>
+                        </form>
+                    </div>
+                {% endfor %}
             </div>
-        {% endfor %}
+        {% else %}
+            <p class="text-center alert alert-info">Nenhuma foto disponível no feed.</p>
+        {% endif %}
     </div>
-
+</div>
 {% endblock %}
